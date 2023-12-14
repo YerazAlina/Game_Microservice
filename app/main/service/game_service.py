@@ -10,12 +10,10 @@ def get_all_games():
     return Game.query.all()
 
 def save_new_game(data: Dict[str, str]) -> Tuple[Dict[str, str], int]:
-    game = Game.query.filter_by(name=data['name']).first()
+    game = Game.query.filter_by(gameName=data['gameName']).first()
     if not game:
         new_game = Game(
-            name=data['name'],
-            start_day=data['start_day'],
-            status=data['status']
+            gameName=data['gameName'],
         )
         save_changes(new_game)
         response_object = {
@@ -26,7 +24,7 @@ def save_new_game(data: Dict[str, str]) -> Tuple[Dict[str, str], int]:
     else:
         response_object = {
             'status': 'fail',
-            'message': 'Game already exists. Please Log in.',
+            'message': 'Game already exists.',
         }
         return response_object, 409
     

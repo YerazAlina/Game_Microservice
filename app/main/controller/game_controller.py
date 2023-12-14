@@ -20,7 +20,7 @@ class GameList(Resource):
     @api.response(201, 'A game successfully created.')
     @api.doc('create a new game')
     def post(self) -> Tuple[Dict[str, str], int]:
-        """Creates a new game """
+        """Creates a new game"""
         data = request.json
         return save_new_game(data=data)
 
@@ -41,3 +41,5 @@ class Game(Resource):
 
 #TODO:get all games by start day 
 #TODO:get all games by status
+#TODO:trow dice 
+#TODO:pick card? > we moved this to the answer microservice
