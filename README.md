@@ -7,4 +7,4 @@ Before runnning the application locally:
 
 
 To run the application locally: 
-    - Flask Run
+1. Flask Run
