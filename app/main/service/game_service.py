@@ -10,10 +10,10 @@ def get_all_games():
     return Game.query.all()
 
 def save_new_game(data: Dict[str, str]) -> Tuple[Dict[str, str], int]:
-    game = Game.query.filter_by(gameName=data['gameName']).first()
+    game = Game.query.filter_by(gameName=data['gamename']).first()
     if not game:
         new_game = Game(
-            gameName=data['gameName'],
+            gameName=data['gamename'],
         )
         save_changes(new_game)
         response_object = {
@@ -32,7 +32,7 @@ def save_changes(data: Game) -> None:
     db.session.add(data)
     db.session.commit()
 
-#TODO: maybe rethink this one.....
+#TODO: not implemented
 def delete_game(public_id):
     game = Game.query.filter_by(public_id=public_id).first()
     if game:

@@ -49,5 +49,3 @@ class DiceController(Resource):
     
 #TODO:get all games by start day 
 #TODO:get all games by status
-#TODO:trow dice 
-#TODO:pick card? > we moved this to the answer microservice
