@@ -10,10 +10,10 @@ def get_all_games():
     return Game.query.all()
 
 def save_new_game(data: Dict[str, str]) -> Tuple[Dict[str, str], int]:
-    game = Game.query.filter_by(gameName=data['gamename']).first()
+    game = False #Game.query.filter_by(gamename=data['gamename']).first()
     if not game:
         new_game = Game(
-            gameName=data['gamename'],
+            gamename=data['gamename']
         )
         save_changes(new_game)
         response_object = {

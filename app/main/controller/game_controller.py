@@ -17,7 +17,7 @@ class GameList(Resource):
         """List all registered games"""
         return get_all_games()
 
-    @api.expect(_game, validate=True)
+    @api.expect(_game)
     @api.response(201, 'A game successfully created.')
     @api.doc('create a new game')
     def post(self) -> Tuple[Dict[str, str], int]:
@@ -41,6 +41,7 @@ class Game(Resource):
             return game
 
 @api.route('/dice')
+@api.doc('get a random number between 1 and 6 from a dice')
 @api.response(404, 'Dice not available.')
 class DiceController(Resource):
     @api.doc('get a random number between 1 and 6 from a dice')
