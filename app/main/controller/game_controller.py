@@ -4,6 +4,7 @@ from flask_restx import Resource
 from ..util.dto import GameDto 
 from ..service.game_service import save_new_game, get_all_games, get_a_game
 from typing import Dict, Tuple
+import random
 
 api = GameDto.api
 _game = GameDto.game
@@ -39,6 +40,13 @@ class Game(Resource):
         else:
             return game
 
+@api.route('/dice')
+@api.response(404, 'Dice not available.')
+class DiceController(Resource):
+    @api.doc('get a random number between 1 and 6 from a dice')
+    def get(self):
+        return random.randint(1,6)
+    
 #TODO:get all games by start day 
 #TODO:get all games by status
 #TODO:trow dice 
