@@ -5,21 +5,12 @@ from flask import Blueprint
 from .main.controller.game_controller import api as game_ns
 
 blueprint = Blueprint('api', __name__)
-authorizations = {
-    'apikey': {
-        'type': 'apiKey',
-        'in': 'header',
-        'name': 'Authorization'
-    }
-}
 
 api = Api(
     blueprint,
-    title='FLASK RESTPLUS(RESTX) API BOILER-PLATE WITH JWT',
+    title='Swagger Documentation',
     version='1.0',
-    description='a boilerplate for flask restplus (restx) web service',
-    authorizations=authorizations,
-    security='apikey'
+    description='Swagger Documentation for Game Microservice',
 )
 
 
