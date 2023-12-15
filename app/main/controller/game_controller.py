@@ -39,6 +39,17 @@ class Game(Resource):
             api.abort(404)
         else:
             return game
+    @api.doc('delete a game')
+    @api.marshal_with(_game)
+    def delete(self, public_id):
+        """delete a game given its identifier"""
+        game = get_a_game(public_id)
+        if not game:
+            api.abort(404)
+        else:
+            api.session.delete(game)
+            api.session.commit()
+            return game
 
 @api.route('/dice')
 @api.doc('get a random number between 1 and 6 from a dice')
