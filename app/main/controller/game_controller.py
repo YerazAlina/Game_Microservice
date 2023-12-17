@@ -26,28 +26,42 @@ class GameList(Resource):
         return save_new_game(data=data)
 
 
-@api.route('/<public_id>')
-@api.param('public_id', 'The Game identifier')
+@api.route('/<id>')
+@api.param('id', 'The Game identifier')
 @api.response(404, 'Game not found.')
 class Game(Resource):
     @api.doc('get a game')
     @api.marshal_with(_game)
-    def get(self, public_id):
+    def get(self, id):
         """get a game given its identifier"""
-        game = get_a_game(public_id)
+        game = get_a_game(id)
         if not game:
             api.abort(404)
         else:
             return game
     @api.doc('delete a game')
     @api.marshal_with(_game)
-    def delete(self, public_id):
+    def delete(self, id):
         """delete a game given its identifier"""
-        game = get_a_game(public_id)
+        game = get_a_game(id)
         if not game:
             api.abort(404)
         else:
             api.session.delete(game)
+            api.session.commit()
+            return game
+    @api.doc('update a game')
+    @api.marshal_with(_game)
+    def put(self, id):
+        """update a game given its identifier"""
+        game = get_a_game(id)
+        if not game:
+            api.abort(404)
+        else:
+            data = request.json
+            game.gamename = data['gamename']
+            game.starttime = data['starttime']
+            game.gamestatus = data['gamestatus']
             api.session.commit()
             return game
 
