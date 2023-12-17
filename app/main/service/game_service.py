@@ -21,7 +21,7 @@ def save_new_game(data: Dict[str, str]) -> Tuple[Dict[str, str], int]:
     else:
         response_object = {
             'status': 'fail',
-            'message': 'Game already exists. Please Log in.',
+            'message': 'Game already exists.',
         }
         return response_object, 409
 

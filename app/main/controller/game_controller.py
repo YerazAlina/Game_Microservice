@@ -8,7 +8,8 @@ import random
 
 api = GameDto.api
 _game = GameDto.game
- 
+_newgame = GameDto.newgame
+
 @api.route('/')
 class GameList(Resource):
     @api.doc('list_of_registered_games')
@@ -17,7 +18,7 @@ class GameList(Resource):
         """List all registered games"""
         return get_all_games()
 
-    @api.expect(_game)
+    @api.expect(_newgame)
     @api.response(201, 'A game successfully created.')
     @api.doc('create a new game')
     def post(self) -> Tuple[Dict[str, str], int]:
