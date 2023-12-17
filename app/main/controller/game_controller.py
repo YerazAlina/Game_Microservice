@@ -34,7 +34,7 @@ class Game(Resource):
     @api.doc('get a game')
     @api.marshal_with(_game)
     def get(self, id):
-        """get a game given its identifier"""
+        """Get a game given its identifier"""
         game = get_a_game(id)
         if not game:
             api.abort(404)
@@ -43,7 +43,7 @@ class Game(Resource):
     @api.doc('delete a game')
     @api.marshal_with(_game)
     def delete(self, id):
-        """delete a game given its identifier"""
+        """Delete a game given its identifier"""
         game = get_a_game(id)
         if not game:
             api.abort(404)
@@ -54,7 +54,7 @@ class Game(Resource):
     @api.doc('update a game')
     @api.marshal_with(_game)
     def put(self, id):
-        """update a game given its identifier"""
+        """Update a game given its identifier"""
         game = get_a_game(id)
         if not game:
             api.abort(404)
@@ -62,7 +62,7 @@ class Game(Resource):
             data = request.json
             game.gamename = data['gamename']
             game.starttime = data['starttime']
-            game.gamestatus = data['gamestatus']
+            game.isactive = data['isactive']
             api.session.commit()
             return game
 
@@ -72,7 +72,6 @@ class Game(Resource):
 class DiceController(Resource):
     @api.doc('get a random number between 1 and 6 from a dice')
     def get(self):
+        """Get a random number between 1 and 6 from a dice"""
         return random.randint(1,6)
     
-#TODO:get all games by start day 
-#TODO:get all games by status
