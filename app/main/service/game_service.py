@@ -1,8 +1,7 @@
-from ast import List
 from app.main import db
 
 from app.main.model.game import Game
-from typing import Dict, Tuple
+from typing import Dict, List, Tuple
 
 def save_new_game(data: Dict[str, str]) -> Tuple[Dict[str, str], int]:
     game = Game.query.filter_by(gamename=data['gamename']).first()
