@@ -1,3 +1,4 @@
+from datetime import datetime
 from app.main import db
 
 from app.main.model.game import Game
@@ -8,7 +9,7 @@ def save_new_game(data: Dict[str, str]) -> Tuple[Dict[str, str], int]:
     if not game:
         new_game = Game(
             gamename=data['gamename'],
-            starttime=data['starttime'],
+            starttime=datetime.utcnow(),
             gamestatus=data['gamestatus']
         )
         save_changes(new_game)
