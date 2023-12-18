@@ -38,8 +38,6 @@ def delete_a_game(id: int) -> None:
 
 def update_a_game(id: int, data: Dict[str, str]) -> None:
     game = Game.query.filter_by(id=id).first()
-    if game.gamename != data['gamename']:
-        game.gamename = data['gamename']
     if game.isactive != data['isactive']:
         game.isactive = data['isactive']
     db.session.commit()
