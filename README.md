@@ -1,10 +1,11 @@
 # PlayGame
 
-Before runnning the application locally: 
+Before runnning the application locally in the terminal: 
 1. Flask db init
 2. Flask db migrate
 3. Flask db upgrade
 
+Ready to run the application? 
 
-To run the application locally: 
-1. Flask Run
+Run:
+4. Flask Run
