@@ -5,7 +5,5 @@ Before runnning the application locally in the terminal:
 2. Flask db migrate
 3. Flask db upgrade
 
-Ready to run the application? 
-
-Run:
+Ready to run the application? Run:
 4. Flask Run
