@@ -2,7 +2,7 @@ from flask import request
 from flask_restx import Resource
 
 from ..util.dto import GameDto 
-from ..service.game_service import save_new_game, get_all_games, get_a_game
+from ..service.game_service import save_new_game, get_all_games, get_a_game, delete_a_game, update_a_game
 from typing import Dict, Tuple
 import random
 
@@ -26,7 +26,6 @@ class GameList(Resource):
         data = request.json
         return save_new_game(data=data)
 
-
 @api.route('/<id>')
 @api.param('id', 'The Game identifier')
 @api.response(404, 'Game not found.')
@@ -41,30 +40,18 @@ class Game(Resource):
         else:
             return game
     @api.doc('delete a game')
-    @api.marshal_with(_game)
+    @api.response(204, 'Game deleted')
     def delete(self, id):
         """Delete a game given its identifier"""
-        game = get_a_game(id)
-        if not game:
-            api.abort(404)
-        else:
-            api.session.delete(game)
-            api.session.commit()
-            return game
-    @api.doc('update a game')
-    @api.marshal_with(_game)
+        delete_a_game(id)
+        return '', 204
+    @api.doc('update game status')
+    @api.expect(_game, validate=True)
+    @api.response(200, 'Game successfully updated.')
     def put(self, id):
         """Update a game given its identifier"""
-        game = get_a_game(id)
-        if not game:
-            api.abort(404)
-        else:
-            data = request.json
-            game.gamename = data['gamename']
-            game.starttime = data['starttime']
-            game.isactive = data['isactive']
-            api.session.commit()
-            return game
+        data = request.json
+        return update_a_game(id=id, data=data)
 
 @api.route('/dice')
 @api.doc('get a random number between 1 and 6 from a dice')
@@ -74,4 +61,3 @@ class DiceController(Resource):
     def get(self):
         """Get a random number between 1 and 6 from a dice"""
         return random.randint(1,6)
-    

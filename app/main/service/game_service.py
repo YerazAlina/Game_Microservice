@@ -36,7 +36,6 @@ def delete_a_game(id: int) -> None:
     db.session.delete(game)
     db.session.commit()
 
-#TODO: update_a_game implement checks 
 def update_a_game(id: int, data: Dict[str, str]) -> Game:
     game = Game.query.filter_by(id=id).first()
     game.gamename = data['gamename']
