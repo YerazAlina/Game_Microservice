@@ -12,5 +12,9 @@ class GameDto:
         'starttime': fields.DateTime(required=True, description='game start time'),
         'isactive': fields.Boolean(required=True, description='game status')
     })
+    updategame = api.model('updategame', {
+        'gamename': fields.String(required=True, description='game name'),
+        'isactive': fields.Boolean(required=True, description='game status')
+    })
 
 

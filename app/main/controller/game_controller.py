@@ -9,6 +9,7 @@ import random
 api = GameDto.api
 _game = GameDto.game
 _newgame = GameDto.newgame
+_updategame = GameDto.updategame
 
 @api.route('/')
 class GameList(Resource):
@@ -45,14 +46,15 @@ class Game(Resource):
         """Delete a game given its identifier"""
         delete_a_game(id)
         return '', 204
-    @api.doc('update game status')
-    @api.expect(_game, validate=True)
-    @api.response(200, 'Game successfully updated.')
+    @api.doc('update a game')
+    @api.expect(_updategame, validate=True)
+    @api.response(204, 'Game successfully updated.')
     def put(self, id):
         """Update a game given its identifier"""
         data = request.json
-        return update_a_game(id=id, data=data)
-
+        update_a_game(id, data)
+        return '', 204
+    
 @api.route('/dice')
 @api.doc('get a random number between 1 and 6 from a dice')
 @api.response(404, 'Dice not available.')

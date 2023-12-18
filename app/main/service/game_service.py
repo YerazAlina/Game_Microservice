@@ -36,13 +36,13 @@ def delete_a_game(id: int) -> None:
     db.session.delete(game)
     db.session.commit()
 
-def update_a_game(id: int, data: Dict[str, str]) -> Game:
+def update_a_game(id: int, data: Dict[str, str]) -> None:
     game = Game.query.filter_by(id=id).first()
-    game.gamename = data['gamename']
-    game.starttime = data['starttime']
-    game.isactive = data['isactive']
+    if game.gamename != data['gamename']:
+        game.gamename = data['gamename']
+    if game.isactive != data['isactive']:
+        game.isactive = data['isactive']
     db.session.commit()
-    return game
 
 def save_changes(data: Game) -> None:
     db.session.add(data)
