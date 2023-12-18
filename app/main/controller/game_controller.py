@@ -2,7 +2,7 @@ from flask import request
 from flask_restx import Resource
 
 from ..util.dto import GameDto 
-from ..service.game_service import save_new_game, get_all_games, get_a_game, delete_a_game, update_a_game
+from ..service.game_service import save_new_game, get_all_games, get_a_game, delete_a_game, update_a_game, get_all_active_games
 from typing import Dict, Tuple
 import random
 
@@ -18,7 +18,6 @@ class GameList(Resource):
     def get(self):
         """List all registered games"""
         return get_all_games()
-
     @api.expect(_newgame)
     @api.response(201, 'A game successfully created.')
     @api.doc('create a new game')
@@ -27,6 +26,14 @@ class GameList(Resource):
         data = request.json
         return save_new_game(data=data)
 
+@api.route('/active')
+class ActiveGameList(Resource):
+    @api.doc('list_of_active_games')
+    @api.marshal_list_with(_game, envelope='data')
+    def get(self):
+        """List all active games"""
+        return get_all_active_games()
+    
 @api.route('/<id>')
 @api.param('id', 'The Game identifier')
 @api.response(404, 'Game not found.')
@@ -50,10 +57,12 @@ class Game(Resource):
     @api.expect(_updategame, validate=True)
     @api.response(204, 'Game successfully updated.')
     def put(self, id):
-        """Update a game given its identifier"""
+        """Update a game activity status given its identifier"""
         data = request.json
-        update_a_game(id, data)
-        return '', 204
+        if not data:
+            api.abort(400)
+        else:
+            return '', 204
     
 @api.route('/dice')
 @api.doc('get a random number between 1 and 6 from a dice')

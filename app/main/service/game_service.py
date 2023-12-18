@@ -28,6 +28,9 @@ def save_new_game(data: Dict[str, str]) -> Tuple[Dict[str, str], int]:
 def get_all_games() -> List[Game]:
     return Game.query.all()
 
+def get_all_active_games() -> List[Game]:
+    return Game.query.filter_by(isactive=True).all()
+
 def get_a_game(id: int) -> Game:
     return Game.query.filter_by(id=id).first()
 
