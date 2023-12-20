@@ -1,4 +1,4 @@
-# PlayGame
+# Game Microservice
 
 Before runnning the application locally in the terminal: 
 1. Flask db init
