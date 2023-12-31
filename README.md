@@ -1,3 +1,5 @@
+# PlayGame
+
 Before runnning the application locally in the terminal: 
 1. Flask db init
 2. Flask db migrate
