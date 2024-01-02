@@ -1,57 +1,21 @@
 import unittest
+from unittest.mock import Mock
+from app.main.controller.game_controller import Game, GameList
 
-import datetime
+class TestGameController(unittest.TestCase):
 
-from app.main import db
-from app.main.controller import game_controller
-from app.test.base import BaseTestCase
+    def setUp(self):
+        self.mock_game_service = Mock()
+        self.game_controller_gamelist = GameList(self.mock_game_service)
 
-class TestGameController(BaseTestCase):
-    def get_by_id(self):
-        game = game_controller.get_by_id(1)
-        self.assertTrue(game.id)
-        self.assertEqual(game.game_name, 'test')
-        self.assertEqual(game.game_description, 'test')
-        self.assertEqual(game.game_location, 'test')
-        self.assertEqual(game.game_start_time, datetime.datetime.utcnow())
-        self.assertEqual(game.game_master, 'test')
-        self.assertEqual(game.game_assistant, 'test')
+    def test_get_all_games(self):
+        expected_games = [{'id': 1, 'gamename': 'test', 'gamedescription': 'test', 'gamelocation': 'test', 'gamestarttime': 'test', 'gamemaster': 'test', 'gameassistant': 'test'}]
+        self.mock_game_service.list_of_games.return_value = expected_games
 
-    def get_all(self):
-        games = game_controller.get_all()
-        self.assertTrue(games)
-        self.assertEqual(games[0].game_name, 'test')
-        self.assertEqual(games[0].game_description, 'test')
-        self.assertEqual(games[0].game_location, 'test')
-        self.assertEqual(games[0].game_start_time, datetime.datetime.utcnow())
-        self.assertEqual(games[0].game_master, 'test')
-        self.assertEqual(games[0].game_assistant, 'test')
+        result = self.game_controller_gamelist.get()
 
-    def update_a_game(self):
-        game = game_controller.update_a_game(1, {
-            'gamename': 'test',
-            'gamedescription': 'test',
-            'gamelocation': 'test',
-            'gamemaster': 'test',
-            'gameassistant': 'test'
-        })
-        self.assertTrue(game.id)
-        self.assertEqual(game.game_name, 'test')
-        self.assertEqual(game.game_description, 'test')
-        self.assertEqual(game.game_location, 'test')
-        self.assertEqual(game.game_start_time, datetime.datetime.utcnow())
-        self.assertEqual(game.game_master, 'test')
-        self.assertEqual(game.game_assistant, 'test')
+        self.assertEqual(result, expected_games)
+        self.mock_game_service.get_all_games.assert_called_once_with()
 
-    def delete_a_game(self):
-        game = game_controller.delete_a_game(1)
-        self.assertTrue(game.id)
-        self.assertEqual(game.game_name, 'test')
-        self.assertEqual(game.game_description, 'test')
-        self.assertEqual(game.game_location, 'test')
-        self.assertEqual(game.game_start_time, datetime.datetime.utcnow())
-        self.assertEqual(game.game_master, 'test')
-        self.assertEqual(game.game_assistant, 'test')
-        
 if __name__ == '__main__':
     unittest.main()
