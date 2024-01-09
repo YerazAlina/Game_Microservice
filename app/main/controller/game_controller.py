@@ -8,7 +8,7 @@ from typing import Dict, Tuple
 api = GameDto.api
 _game = GameDto.game
 
-@api.route('/')
+@api.route('')
 class GameList(Resource):
     @api.doc('list_of_games')
     @api.marshal_list_with(_game, envelope='data')
