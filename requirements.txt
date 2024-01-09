@@ -29,3 +29,5 @@ SQLAlchemy==2.0.1
 typing_extensions==4.4.0
 Werkzeug==2.2.2
 zipp==3.11.0
+prometheus-flask-exporter
+prometheus-flask-exporter==0.23.0
